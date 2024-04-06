@@ -1,0 +1,111 @@
+{
+    "name": "cp",
+    "dockerComposeFile": [
+        "../docker-compose.yml",
+        "docker-compose.yml"
+    ],
+    "service": "devcontainer",
+    "workspaceFolder": "/workspace",
+    "features": {
+        "ghcr.io/devcontainers/features/go:1": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/python:1": {
+            "installTools": true,
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/rust:1": {
+            "version": "latest",
+            "profile": "default"
+        },
+        "ghcr.io/devcontainers-contrib/features/elixir-asdf:2": {
+            "elixirVersion": "latest",
+            "erlangVersion": "latest"
+        },
+        "ghcr.io/devcontainers-contrib/features/haskell:2": {
+            "installHLS": true,
+            "downgradeGhcToSupportHls": true,
+            "installStack": true,
+            "installStackGHCupHook": true,
+            "adjustBash": true,
+            "ghcVersion": "latest",
+            "cabalVersion": "latest",
+            "globalPackages": ""
+        }
+    },
+    "postCreateCommand": "sh .devcontainer/scripts/post_create.sh",
+    "postStartCommand": "sh .devcontainer/scripts/post_start.sh ${containerWorkspaceFolder}",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "editor.guides.bracketPairs": true,
+                "editor.formatOnSave": true,
+                "[rust]": {
+                    "editor.formatOnSave": true,
+                    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+                    "editor.formatOnPaste": true,
+                    "editor.formatOnType": true
+                },
+                "rust-analyzer.checkOnSave": true,
+                "rust-analyzer.check.command": "clippy",
+                "rust-analyzer.check.extraArgs": [
+                    "--",
+                    "-A",
+                    "clippy::needless_return"
+                ],
+                "[python]": {
+                    "editor.formatOnSave": true,
+                    // "editor.formatOnSaveMode": "modifications",
+                    "editor.defaultFormatter": "charliermarsh.ruff", // 別のものを指定するとフォーマットは指定したものになる
+                    "editor.codeActionsOnSave": { // 保存時に実行する
+                        "source.fixAll": true, // (登録した)fixAllを実行。
+                        // "source.fixAll.ruff": true, // ruffのfixAllを明示的に使用。
+                        "source.organizeImports": true // (登録した)organizeImportsを実行。
+                      // "source.organizeImports.ruff": true //ruffのorganizeImportsを明示的に使用。
+                    },
+                    "ruff.format.args": [
+                        "--config=pyproject.toml"
+                    ]
+                }
+            },
+            "extensions": [
+                // C++
+                "ms-vscode.cpptools-extension-pack",
+                "ajshort.include-autocomplete",
+                "formulahendry.code-runner",
+                // Python
+                "charliermarsh.ruff",
+                "ms-python.python",
+                "ms-python.mypy-type-checker",
+                "njpwerner.autodocstring",
+                // Rust関連
+                "rust-lang.rust-analyzer",
+                "serayuzgur.crates",
+                "tamasfe.even-better-toml",
+                "swellaby.vscode-rust-test-adapter",
+                "jscearcy.rust-doc-viewer",
+                "ms-vscode.live-server",
+                "vadimcn.vscode-lldb",
+                "ms-vscode.makefile-tools",
+                // Elixir
+                "jakebecker.elixir-ls",
+                // Haskell
+                "haskell.haskell",
+                // Git関連
+                "GitHub.vscode-pull-request-github",
+                "github.vscode-github-actions",
+                "mhutchie.git-graph",
+                "eamodio.gitlens",
+                "donjayamanne.githistory",
+                "seatonjiang.gitmoji-vscode",
+                // その他
+                "tamasfe.even-better-toml",
+                "streetsidesoftware.code-spell-checker",
+                "naumovs.color-highlight",
+                "Gruntfuggly.todo-tree",
+                "oderwat.indent-rainbow",
+                "pkief.material-icon-theme",
+            ]
+        }
+    }
+}
